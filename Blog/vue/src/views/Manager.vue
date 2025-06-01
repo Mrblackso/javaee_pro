@@ -54,7 +54,7 @@
               <span>用户管理</span>
             </template>
             <el-menu-item>管理员信息</el-menu-item>
-            <el-menu-item>普通用户信息</el-menu-item>
+            <el-menu-item index="/manager/Employee">员工信息</el-menu-item>
           </el-sub-menu>
           <!--          个人信息-->
           <el-menu-item index="/manager/person">

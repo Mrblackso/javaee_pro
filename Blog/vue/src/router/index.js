@@ -10,7 +10,8 @@ const router = createRouter({
                 {path: 'home', name: 'home', meta: {title: '主页'}, component: () => import('../views/Home.vue')},
                 {path: 'text', name: 'text', meta: {title: '测试'}, component: () => import('../views/Text.vue')},
                 {path: 'data', name: 'data', meta: {title: '数据展示页面'}, component: () => import('../views/Data.vue')},
-                { path: 'person', name: 'person', component: () => import('../views/person.vue') },
+                {path: 'person', name: 'person', component: () => import('../views/person.vue') },
+                {path: 'employee', name: 'employee', meta: {title: '员工信息'},component: () => import('../views/Employee.vue') },
 
 ]
         },

@@ -2,11 +2,11 @@ package com.example.springboot.mapper;
 
 import com.example.springboot.entity.Employee;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface EmployeeMapper {
-    List<Employee> selectAll();
 
     List<Employee> selectById(Integer id);
 
@@ -15,4 +15,6 @@ public interface EmployeeMapper {
     void updataById(Employee employee);
 
     void deleteById(Integer id);
+
+    List<Employee> selectAll(@Param("employee") Employee employee);
 }

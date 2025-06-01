@@ -19,8 +19,8 @@ public class EmployeeController {
 
 //    查询所有数据
     @GetMapping("/selectAll")
-    public Result selectAll(){
-        List<Employee> list = employeeService.selectAll();
+    public Result selectAll(Employee  employee){
+        List<Employee> list = employeeService.selectAll(employee);
         return Result.success(list);
     }
 
@@ -32,8 +32,11 @@ public class EmployeeController {
 
 
     @GetMapping("/selectPages")
-    public Result selectPages(@RequestParam(defaultValue = "1") Integer pageNum,@RequestParam(defaultValue = "10") Integer pageSize){
-        PageInfo<Employee> list = employeeService.selectPages(pageNum, pageSize);
+    public Result selectPages(
+            Employee  employee,
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(defaultValue = "10") Integer pageSize){
+        PageInfo<Employee> list = employeeService.selectPages(employee,pageNum, pageSize);
         return Result.success(list);
     }
 

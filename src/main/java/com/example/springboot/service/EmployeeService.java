@@ -8,6 +8,7 @@ import com.example.springboot.entity.Employee;
 import com.example.springboot.mapper.EmployeeMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,9 +21,8 @@ public class EmployeeService {
 
     @Resource
     private EmployeeMapper employeeMapper;
-    public List<Employee> selectAll() {
-        List<Employee> list = employeeMapper.selectAll();
-        return list;
+    public List<Employee> selectAll(@Param("employee") Employee employee) {
+        return employeeMapper.selectAll(employee);
     }
 
 
@@ -30,9 +30,9 @@ public class EmployeeService {
         return employeeMapper.selectById(id);
     }
 
-    public PageInfo<Employee> selectPages(Integer pageNum, Integer pageSize) {
+    public PageInfo<Employee> selectPages(Employee employee, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Employee> list = employeeMapper.selectAll();
+        List<Employee> list = employeeMapper.selectAll(employee);
         return PageInfo.of(list);
     }
 

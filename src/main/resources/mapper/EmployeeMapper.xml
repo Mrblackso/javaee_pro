@@ -24,9 +24,19 @@
 
 
     <!--    这里的id和 mapper接口的方法名一一对应    resultType 对应返回数据-->
+<!--                 动态模糊查询-->
+<!--                name like concat('%',#{name},'%')-->
     <select id="selectAll" resultType="com.example.springboot.entity.Employee">
         select * from employee
+        <where>
+            <!-- 使用 employee.name 表示从参数对象中取值 -->
+            <if test="employee.name != null">
+                name like concat('%', #{employee.name}, '%')
+            </if>
+        </where>
+        order by id desc
     </select>
+
 
     <select id="selectById" resultType="com.example.springboot.entity.Employee">
         select * from employee where id = #{id}
