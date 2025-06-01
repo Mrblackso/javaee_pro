@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.springboot.mapper.EmployeeMapper">
+
+    <insert id="add">
+        insert into employee(id, name, sex, no, age, description, department_id)
+        values(#{id}, #{name}, #{sex}, #{no}, #{age}, #{description}, #{departmentId})
+    </insert>
+
+
+
+
+    <update id="updataById">
+        UPDATE employee
+        SET name = #{name}, sex = #{sex}, no = #{no}, age = #{age}, description = #{description},department_id = #{departmentId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM employee
+        WHERE id = #{id}
+    </delete>
+
+
+    <!--    这里的id和 mapper接口的方法名一一对应    resultType 对应返回数据-->
+    <select id="selectAll" resultType="com.example.springboot.entity.Employee">
+        select * from employee
+    </select>
+
+    <select id="selectById" resultType="com.example.springboot.entity.Employee">
+        select * from employee where id = #{id}
+    </select>
+</mapper>
+<!--xml 与mapper 一一对应 -->

@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+
+spring:
+  # 数据库的配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver  # 如果使用的 mysq 版本比较老,那么就使用 com.mysql.jdbc.Driver .
+    password: "123456"
+    username: "root"
+    url: jdbc:mysql://localhost:3306/java_pro?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+
+#mabatis 数据库管理 配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.springboot.model
+
+  configuration:
+
+
+    # 数据库表名转为->驼峰命名
+    map-underscore-to-camel-case: true
+    #配置日志 控制台打印
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

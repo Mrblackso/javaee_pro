@@ -1,0 +1,42 @@
+import {createRouter, createWebHistory} from 'vue-router'
+
+const router = createRouter({
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes: [
+        {path: '/', redirect: '/manager/home'},
+        {
+            path: '/manager', component: () => import('../views/Manager.vue'), children: [
+                // meta 补充路由对象
+                {path: 'home', name: 'home', meta: {title: '主页'}, component: () => import('../views/Home.vue')},
+                {path: 'text', name: 'text', meta: {title: '测试'}, component: () => import('../views/Text.vue')},
+                {path: 'data', name: 'data', meta: {title: '数据展示页面'}, component: () => import('../views/Data.vue')},
+                { path: 'person', name: 'person', component: () => import('../views/person.vue') },
+
+]
+        },
+        {path: '/404', name: 'NotFound', meta: {title: '404找不到页面'}, component: () => import('../views/404.vue')},
+    ]
+})
+
+// router.beforeEach((to, from, next) => {
+//   // console.log(to, from);
+//   // console.log(to.meta.title);
+//   document.title = to.matched[0].meta.title;
+//   next(); // 调用 next() 才会进入下一个网页
+// })
+router.beforeEach((to, from, next) => {
+    const matched = to.matched;
+    // 从后往前找，找到第一个有 meta.title 的路由
+    const routeWithTitle = matched.slice().reverse().find(m => m.meta?.title);
+
+    if (routeWithTitle) {
+        document.title = routeWithTitle.meta.title;
+    } else {
+        document.title = '博客系统'; // 默认标题
+    }
+
+    next();
+});
+
+
+export default router
