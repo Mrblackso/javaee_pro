@@ -2,15 +2,15 @@
   <div>
     <div class="card" style="margin-bottom: 5px">
       <!--      <el-card>-->
-      <span style="display: inline-flex; align-items: center; margin-right: 6px;margin-top: 14px">
-        <el-icon><Search/></el-icon>
-      </span>
+<!--      <span style="display: inline-flex; align-items: center; margin-right: 6px;margin-top: 14px">-->
+<!--        <el-icon><Search/></el-icon>-->
+<!--      </span>-->
 
       <el-input
           style="width: 240px"
           v-model="data.name"
           placeholder="请输入名称查询"
-          prefix-icon="Search"
+          :prefix-icon="Search"
       ></el-input>
       <el-button type="primary">查 询</el-button>
       <el-button type="warning">新 增</el-button>
