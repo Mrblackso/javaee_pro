@@ -33,12 +33,14 @@
 import { reactive } from 'vue'
 import request from "../utils/request.js"
 
+
 const data = reactive({
+
   employeeList: []
 })
 
 request.get("/employee/selectAll").then((res) => {
-  console.log("返回数据：", res)
-  data.employeeList = res.data  // 注意：不要写成 res.data.data
+  console.log(res)
+  data.employeeList = res.data  // 注意：不要写成 res.data.data   res.data 是一个数组
 })
 </script>
