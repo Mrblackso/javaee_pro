@@ -2,7 +2,6 @@ package com.example.springboot.entity;
 
 //实体类
 
-
 public class Employee {
     private Integer id;
     private String name;

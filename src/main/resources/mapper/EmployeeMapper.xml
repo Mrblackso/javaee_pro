@@ -11,8 +11,6 @@
     </insert>
 
 
-
-
     <update id="updataById">
         UPDATE employee
         SET name = #{name}, sex = #{sex}, no = #{no}, age = #{age}, description = #{description},department_id = #{departmentId}
