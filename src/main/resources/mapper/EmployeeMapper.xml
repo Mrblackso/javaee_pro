@@ -6,14 +6,14 @@
 <mapper namespace="com.example.springboot.mapper.EmployeeMapper">
 
     <insert id="add">
-        insert into employee(id, name, sex, no, age, description, department_id)
-        values(#{id}, #{name}, #{sex}, #{no}, #{age}, #{description}, #{departmentId})
+        insert into employee(id,username, password,role, name, sex, no, age, description, department_id)
+        values(#{id},#{username},#{password}, #{role}, #{name}, #{sex}, #{no}, #{age}, #{description}, #{departmentId})
     </insert>
 
 
     <update id="updataById">
         UPDATE employee
-        SET name = #{name}, sex = #{sex}, no = #{no}, age = #{age}, description = #{description},department_id = #{departmentId}
+        SET name = #{name}, username = #{username},password = #{password},role = #{role},sex = #{sex}, no = #{no}, age = #{age}, description = #{description},department_id = #{departmentId}
         WHERE id = #{id}
     </update>
 

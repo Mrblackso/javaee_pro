@@ -31,7 +31,8 @@
       <el-table :data="data.tableData" stripe   @selection-change="handleSelectionChange"  >
 
         <el-table-column type="selection"  stripe  width="55"/>
-        <el-table-column label="名称" prop="name"/>
+
+        <el-table-column label="账号" prop="username"/>
         <el-table-column label="性别" prop="sex"/>
         <el-table-column label="工号" prop="no"/>
         <el-table-column label="年龄" prop="age"/>
@@ -73,19 +74,19 @@
 
 <!--        新增窗口 -->
       </div>
-        <el-dialog v-model="data.formVisible" title="员工信息" width="500">
-          <el-form :model="data.form" style="padding-right: 40px ;padding-top: 20px " label-width="80px">
+<!--      关闭时销毁 destroy-on-close-->
+        <el-dialog v-model="data.formVisible" title="员工信息" width="500" destroy-on-close>
+          <el-form ref="formRef"  :rules="data.rules" :model="data.form" style="padding-right: 40px ;padding-top: 20px " label-width="80px">
 
-            <el-form-item label="名称">
+            <el-form-item label="账号"  prop="username">
+              <el-input v-model="data.form.username" autocomplete="off" placeholder="请输入账号" />
+            </el-form-item>
+
+            <el-form-item label="名称"  prop="name" >
               <el-input v-model="data.form.name" autocomplete="off" placeholder="请输入名称" />
             </el-form-item>
 
-<!--            <el-form-item label="性别" >-->
-<!--              <el-radio-group v-model="data.form.sex">-->
-<!--                 <el-radio label="男"/>-->
-<!--                 <el-radio label="女"/>-->
-<!--              </el-radio-group>-->
-<!--            </el-form-item>-->
+
             <el-form-item label="性别">
               <el-radio-group v-model="data.form.sex">
                 <el-radio value="男">男</el-radio>
@@ -94,7 +95,7 @@
             </el-form-item>
 
 
-            <el-form-item label="工号">
+            <el-form-item label="工号" prop="no">
               <el-input v-model="data.form.no" autocomplete="off" placeholder="请输入工号"/>
             </el-form-item>
              <el-form-item label="年龄">
@@ -132,7 +133,7 @@
 
 <script setup>
 import { ElMessageBox,ElMessage } from 'element-plus';
-import { reactive, onMounted ,} from 'vue';
+import { reactive, onMounted , ref,} from 'vue';
 import request from '../utils/request';
 import { Search, Edit, Delete } from '@element-plus/icons-vue';
 const data = reactive({
@@ -144,6 +145,18 @@ const data = reactive({
   formVisible: false,
    form: {},
   ids: [],
+  rules: {
+    username: [
+      { required: true, message: '请输入账号名称', trigger: 'blur' },
+    ],
+    name: [
+      { required: true, message: '请输入名称', trigger: 'blur' },
+    ],
+    no: [
+      { required: true, message: '请输入工号', trigger: 'blur' },
+    ]
+
+   }
 });
 
 
@@ -183,36 +196,38 @@ const handleAdd = () => {
   data.formVisible = true;
   data.form = {};
 };
-
 const save = () => {
+  formRef.value.validate(valid => {
+    if (!valid) {
+      ElMessage.warning('请填写必填字段');
+      return;
+    }
 
-  //新增没有id, 修改有id
-  //urL 不要写错 ..... qwq
-  if (data.form.id) {
-    request.post('/employee/updata', data.form).then(res => {
+    // 验证通过，开始保存
+    if (data.form.id) {
+      request.post('/employee/updata', data.form).then(res => {
+        if (res.code === '200') {
+          ElMessage.success('更新成功');
+          data.formVisible = false;
+          load();
+        } else {
+          ElMessage.error('更新失败：' + res.msg);
+        }
+      });
+      return;
+    }
+
+    request.post('/employee/add', data.form).then(res => {
       if (res.code === '200') {
-        alert('保存成功');
+        ElMessage.success('新增成功');
         data.formVisible = false;
         load();
       } else {
-        alert('保存失败：' + res.msg);
+        ElMessage.error('新增失败：' + res.msg);
       }
     });
-    return;
-  }
-
-  request.post('/employee/add', data.form).then(res => {
-    if (res.code === '200') {
-      alert('保存成功');
-      data.formVisible = false;
-      load();
-      //  新增后 重载信息
-    } else {
-      alert('保存失败：' + res.msg);
-    }
   });
 };
-
 
 const handleEdit = (row) => {
   data.formVisible = true;
@@ -277,6 +292,8 @@ const delBatch = () => {
   )
  }
 
+
+const formRef = ref(null);
 
 onMounted(() => {
   load();

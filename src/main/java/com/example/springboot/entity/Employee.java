@@ -4,6 +4,9 @@ package com.example.springboot.entity;
 
 public class Employee {
     private Integer id;
+    private String password;
+    private String username;
+    private String role;
     private String name;
     private String sex;
     private String no;
@@ -67,5 +70,29 @@ public class Employee {
 
     public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

@@ -5,6 +5,7 @@ package com.example.springboot.service;
 //service 用于处理 数据
 
 import com.example.springboot.entity.Employee;
+import com.example.springboot.exception.CustomException;
 import com.example.springboot.mapper.EmployeeMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -52,5 +53,23 @@ public class EmployeeService {
         for(Integer id:ids){
             this.deleteById(id);
         }
+    }
+
+    public Employee login(Employee employee) {
+        String  username = employee.getUsername();
+        Employee DbEmployee = employeeMapper.selectByUsername(username);
+        if(DbEmployee == null){
+//        数据库中没有 该名字
+            throw new CustomException("500", "用户不存在");
+
+        }
+        String  password = employee.getPassword();
+        if(!DbEmployee.getPassword().equals(password)){
+//            密码不匹配
+            DbEmployee.setPassword(null);
+            throw new CustomException("500", "密码错误");
+
+        }
+        return DbEmployee;
     }
 }
