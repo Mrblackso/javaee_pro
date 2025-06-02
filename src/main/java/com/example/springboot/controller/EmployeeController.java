@@ -58,4 +58,13 @@ public class EmployeeController {
         employeeService.deleteById(id);
         return Result.success();
     }
+
+
+//    批量删除
+    @DeleteMapping("deleteBatch")
+//    一个List 集合 @RequestBody 接收
+    public Result deleteBatch(@RequestBody List<Integer> ids){
+        employeeService.deleteBatch(ids);
+        return Result.success();
+    }
 }

@@ -34,7 +34,7 @@
                 name like concat('%', #{employee.name}, '%')
             </if>
         </where>
-        order by id desc
+        order by id asc
     </select>
 
 

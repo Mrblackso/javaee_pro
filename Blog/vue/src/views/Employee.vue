@@ -20,20 +20,37 @@
     </div>
     <div class="card" style="margin-bottom: 5px">
       <el-button type="primary" @click="handleAdd">新 增</el-button>
-      <el-button type="warning">批量删除</el-button>
+      <el-button type="danger"  @click="delBatch">批量删除</el-button>
 <!--      <el-button type="info">导 入</el-button>-->
 <!--      <el-button type="success">导 出</el-button>-->
 
     </div>
+
     <div class="card" style="margin-bottom: 5px">
-      <el-table :data="data.tableData" stripe>
+<!--           @selection-change="handleSelectionChange" 要加在表格内     -->
+      <el-table :data="data.tableData" stripe   @selection-change="handleSelectionChange"  >
+
+        <el-table-column type="selection"  stripe  width="55"/>
         <el-table-column label="名称" prop="name"/>
         <el-table-column label="性别" prop="sex"/>
         <el-table-column label="工号" prop="no"/>
         <el-table-column label="年龄" prop="age"/>
         <el-table-column label="个人介绍" prop="description" show-overflow-tooltip />
 <!--        show-overflow-tooltip 放不下时 鼠标 移动 显示全部 -->
-        <el-table-column label="部门" prop="departmentName"/>
+        <el-table-column label="部门" prop="departmentId"/>
+<!--        操作部分-->
+        <el-table-column label="操作"  width="120px">
+          <template #default="scope">
+            <!-- link功能: 去掉样式 按钮的 边框-->
+            <!-- #default="scope" 功能: 绑定当前行数据 -->
+            <!-- circle 圆形按钮-->
+            <!--  -->
+
+            <el-button type="primary"  @click="handleEdit(scope.row)"  :icon="Edit" circle></el-button>
+            <el-button type="warning"  @click="del(scope.row.id)"   :icon="Delete" circle></el-button>
+          </template>
+        </el-table-column>
+
 
       </el-table>
 
@@ -63,23 +80,33 @@
               <el-input v-model="data.form.name" autocomplete="off" placeholder="请输入名称" />
             </el-form-item>
 
-            <el-form-item label="性别" >
+<!--            <el-form-item label="性别" >-->
+<!--              <el-radio-group v-model="data.form.sex">-->
+<!--                 <el-radio label="男"/>-->
+<!--                 <el-radio label="女"/>-->
+<!--              </el-radio-group>-->
+<!--            </el-form-item>-->
+            <el-form-item label="性别">
               <el-radio-group v-model="data.form.sex">
-                 <el-radio label="男"/>
-                 <el-radio label="女"/>
+                <el-radio value="男">男</el-radio>
+                <el-radio value="女">女</el-radio>
               </el-radio-group>
             </el-form-item>
-             <el-form-item label="工号">
+
+
+            <el-form-item label="工号">
               <el-input v-model="data.form.no" autocomplete="off" placeholder="请输入工号"/>
             </el-form-item>
              <el-form-item label="年龄">
               <el-input-number   style="width: 180px" :min="18" v-model="data.form.age" autocomplete="off" placeholder="请输入年龄"/>
             </el-form-item>
+
             <el-form-item label="个人介绍">
-              <el-input  rows="3"  type="textarea" v-model="data.form.description" autocomplete="off" placeholder="请输入个人介绍"/>
+              <el-input :rows="3" type="textarea" v-model="data.form.description" autocomplete="off" placeholder="请输入个人介绍"/>
             </el-form-item>
+
             <el-form-item label="所在部门">
-              <el-input  v-model="data.form.departmentName" autocomplete="off" placeholder="请输入所在部门"/>
+              <el-input  v-model="data.form.departmentId" autocomplete="off" placeholder="请输入所在部门"/>
             </el-form-item>
           </el-form>
 
@@ -87,8 +114,11 @@
 <!--          -->
           <template #footer>
             <div class="dialog-footer">
-              <el-button @click="data.FormVisible = false">取消</el-button>
+
+<!--             data.formVisible = false   注意 formVisible  'f'是小写-->
+              <el-button @click="data.formVisible = false">取消</el-button>
               <el-button type="primary" @click="save">保 存</el-button>
+
             </div>
           </template>
         </el-dialog>
@@ -101,9 +131,10 @@
 
 
 <script setup>
-import { reactive, onMounted } from 'vue';
+import { ElMessageBox,ElMessage } from 'element-plus';
+import { reactive, onMounted ,} from 'vue';
 import request from '../utils/request';
-
+import { Search, Edit, Delete } from '@element-plus/icons-vue';
 const data = reactive({
   name: null,
   tableData: [],
@@ -112,6 +143,7 @@ const data = reactive({
   total: 0,
   formVisible: false,
    form: {},
+  ids: [],
 });
 
 
@@ -128,7 +160,7 @@ const load = () => {
     if (res.code === '200') {
       data.tableData = res.data.list.map(item => ({
         ...item,
-        departmentName: item.departmentId // 前端名字数据库不同时进行映射
+        // departmentName: item.departmentId // 前端名字数据库不同时进行映射
       }));
       data.total = res.data.total;
     //  设置前端显示数据条数
@@ -151,18 +183,100 @@ const handleAdd = () => {
   data.formVisible = true;
   data.form = {};
 };
+
 const save = () => {
-    request.post('/employee/add', data.form).then(res => {
+
+  //新增没有id, 修改有id
+  //urL 不要写错 ..... qwq
+  if (data.form.id) {
+    request.post('/employee/updata', data.form).then(res => {
       if (res.code === '200') {
         alert('保存成功');
         data.formVisible = false;
         load();
-      //  新增后 重载信息
       } else {
         alert('保存失败：' + res.msg);
       }
     });
+    return;
+  }
+
+  request.post('/employee/add', data.form).then(res => {
+    if (res.code === '200') {
+      alert('保存成功');
+      data.formVisible = false;
+      load();
+      //  新增后 重载信息
+    } else {
+      alert('保存失败：' + res.msg);
+    }
+  });
 };
+
+
+const handleEdit = (row) => {
+  data.formVisible = true;
+  data.form = { ...row };
+//  data.form = { ...row } 实现 数据的复制
+};
+
+
+//删除
+const del  = (id) => {
+  ElMessageBox.confirm('删除后数据无法恢复,请确认 qwq ','删除确认', {type : 'warning'}).then(()=>
+      request.delete(`/employee/deleteById/${id}`).then(res => {
+         if (res.code === '200') {
+          alert('删除成功');
+          data.formVisible = false;
+          load();
+        } else {
+          alert('删除失败：' + res.msg);
+        }
+      }).catch()
+  )
+
+  // request.delete(`/employee/deleteById/${id}`).then(res => {
+  //
+  //    if (res.code === '200') {
+  //      alert('删除成功');
+  //      data.formVisible = false;
+  //      load();
+  //    } else {
+  //      alert('删除失败：' + res.msg);
+  //    }
+  //  });
+};
+
+// 返回所有的 行对象
+const handleSelectionChange = (rows)=>{
+   console.log(rows);
+//    从选中的 行数组 中 所有的 行Id组成新的 数组
+    data.ids = rows.map(row => row.id);
+    console.log(data.ids);
+}
+
+const delBatch = () => {
+
+  if( data.ids.length === 0){
+      // alert('请选择要删除的行');
+      ElMessage.warning( '请选择要删除的行')
+      return
+  }
+
+  ElMessageBox.confirm('删除后数据无法恢复,请确认 qwq ','删除确认', {type : 'warning'}).then(()=>
+      request.delete(`/employee/deleteBatch/`, {data : data.ids}).then(res => {
+         if (res.code === '200') {
+          // alert('删除成功');
+           ElMessage.success( '删除成功')
+          // data.formVisible = false;
+          load();
+        } else {
+          ElMessage.error( '删除失败：' + res.msg)
+        }
+      }).catch()
+  )
+ }
+
 
 onMounted(() => {
   load();
