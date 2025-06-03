@@ -27,7 +27,7 @@
 |:-------------:|--------|------|
 |   username    | string | 用户名  |
 |   password    | string | 密码   |
-|     role      |        |      |
+|     role      | string | 角色   |
 |  description  | string | 个人介绍 |
 | department_id | int    | 部门ID |
 |      sex      | string | 性别   |
