@@ -14,8 +14,8 @@
           <el-form-item  style="padding-left: 15px" prop="password">
             <el-input show-password size="large" v-model="data.form.password " placeholder="请输入密码" :prefix-icon="Lock" style="height: 50px"></el-input>
           </el-form-item>
-          <el-form-item  style="padding-left: 15px" prop="password">
-            <el-input show-password size="large" v-model="data.form.password " placeholder="请确认密码" :prefix-icon="Lock" style="height: 50px"></el-input>
+          <el-form-item  style="padding-left: 15px" prop="confirmPassword">
+            <el-input show-password size="large" v-model="data.form.confirmPassword " placeholder="请确认密码" :prefix-icon="Lock" style="height: 50px"></el-input>
           </el-form-item>
 <!---->
           <div >
@@ -40,6 +40,12 @@ import { ElMessage } from 'element-plus'
 
 const router = useRouter()
 
+const validate = (rule, value, callback) => {
+  if (!value || value !== data.form.password) {
+    callback(new Error("请确认密码！"))
+  }
+}
+
 const data = reactive({
   form: {},
   rules: {
@@ -48,6 +54,9 @@ const data = reactive({
     ],
     password: [
       { required: true, message: '请输入密码', trigger: 'blur' }
+    ],
+    confirmPassword: [
+      {validator: validate, trigger: 'blur'}
     ]
   }
 })
@@ -57,7 +66,7 @@ const formRef = ref()
 const register = () => {
   formRef.value.validate(valid => {
     if (valid) {
-      request.post('/regist', data.form).then(res => {
+      request.post('/register', data.form).then(res => {
         if (res.code == 200) {
 
           ElMessage.success('注册成功')
