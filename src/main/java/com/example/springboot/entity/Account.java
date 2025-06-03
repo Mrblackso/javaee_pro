@@ -1,2 +1,8 @@
-package com.example.springboot.entity;public class Account {
+package com.example.springboot.entity;
+
+
+
+
+public class Account {
+
 }

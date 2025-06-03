@@ -46,7 +46,17 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>2.1.0</version>
+
         </dependency>
+
+        <!-- Hutool 工具包 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.22</version> <!-- 版本号可以根据需要调整 -->
+        </dependency>
+
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
