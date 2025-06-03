@@ -14,12 +14,13 @@
           <el-form-item  style="padding-left: 15px" prop="password">
             <el-input show-password size="large" v-model="data.form.password " placeholder="请输入密码" :prefix-icon="Lock" style="height: 50px"></el-input>
           </el-form-item>
+
           <el-form-item  style="padding-left: 15px" prop="confirmPassword">
             <el-input show-password size="large" v-model="data.form.confirmPassword " placeholder="请确认密码" :prefix-icon="Lock" style="height: 50px"></el-input>
           </el-form-item>
 <!---->
           <div >
-            <el-button size="large" type="primary" style="width: 100%;height: 40px;margin-top: 20px" @click="login">注 册</el-button>
+            <el-button size="large" type="primary" style="width: 100%;height: 40px;margin-top: 20px" @click="register">注 册</el-button>
           </div>
              <div style="text-align: right;padding-top: 5px ;color: white">已有账号？ 请 <a style="color: deepskyblue;text-decoration: none" href="/login">登录</a></div>
           <div style="height: 5px"></div>
@@ -40,10 +41,15 @@ import { ElMessage } from 'element-plus'
 
 const router = useRouter()
 
-const validate = (rule, value, callback) => {
-  if (!value || value !== data.form.password) {
-    callback(new Error("请确认密码！"))
-  }
+const validatePass = (rule, value, callback) => {
+      if(!value){
+        callback(new Error('请再次输入密码'))
+      } else if(value !== data.form.password){
+        callback(new Error('两次密码不一致'))
+      }else{
+        callback()
+      }
+
 }
 
 const data = reactive({
@@ -56,7 +62,7 @@ const data = reactive({
       { required: true, message: '请输入密码', trigger: 'blur' }
     ],
     confirmPassword: [
-      {validator: validate, trigger: 'blur'}
+      {validator: validatePass, trigger: 'blur'}
     ]
   }
 })

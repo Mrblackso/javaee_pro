@@ -3,22 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.springboot.mapper.EmployeeMapper">
+<mapper namespace="com.example.springboot.mapper.AdminMapper">
 
     <insert id="add">
-        insert into employee(id,username, password,role, name, sex, no, age, description, department_id)
-        values(#{id},#{username},#{password}, #{role}, #{name}, #{sex}, #{no}, #{age}, #{description}, #{departmentId})
+        insert into admin(id,username, password,role, name)
+        values(#{id},#{username},#{password}, #{role}, #{name})
     </insert>
 
 
     <update id="updataById">
-        UPDATE employee
-        SET name = #{name}, username = #{username},password = #{password},role = #{role},sex = #{sex}, no = #{no}, age = #{age}, description = #{description},department_id = #{departmentId}
+        UPDATE admin
+        SET name = #{name}, username = #{username},password = #{password},role = #{role},
         WHERE id = #{id}
     </update>
 
     <delete id="deleteById">
-        DELETE FROM employee
+        DELETE FROM admin
         WHERE id = #{id}
     </delete>
 
@@ -26,20 +26,20 @@
     <!--    这里的id和 mapper接口的方法名一一对应    resultType 对应返回数据-->
 <!--                 动态模糊查询-->
 <!--                name like concat('%',#{name},'%')-->
-    <select id="selectAll" resultType="com.example.springboot.entity.Employee">
-        select * from employee
+    <select id="selectAll" resultType="com.example.springboot.entity.Admin">
+        select * from admin
         <where>
-            <!-- 使用 employee.name 表示从参数对象中取值 -->
-            <if test="employee.name != null">
-                name like concat('%', #{employee.name}, '%')
+            <!-- 使用 admin.name 表示从参数对象中取值 -->
+            <if test="admin.name != null">
+                name like concat('%', #{admin.name}, '%')
             </if>
         </where>
         order by id asc
     </select>
 
 
-    <select id="selectById" resultType="com.example.springboot.entity.Employee">
-        select * from employee where id = #{id}
+    <select id="selectById" resultType="com.example.springboot.entity.Admin">
+        select * from admin where id = #{id}
     </select>
 </mapper>
 <!--xml 与mapper 一一对应 -->

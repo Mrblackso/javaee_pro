@@ -6,13 +6,13 @@ spring:
   # 数据库的配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver  # 如果使用的 mysq 版本比较老,那么就使用 com.mysql.jdbc.Driver .
-#    password: "123456"
-#    username: "root"
-#    url: jdbc:mysql://localhost:3306/java_pro?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
-
-    password: "1234"
+    password: "123456"
     username: "root"
-    url: jdbc:mysql://192.168.43.134:3306/java_pro?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/java_pro?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+
+#    password: "1234"
+#    username: "root"
+#    url: jdbc:mysql://192.168.43.134:3306/java_pro?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
 
 #mabatis 数据库管理 配置
 mybatis:

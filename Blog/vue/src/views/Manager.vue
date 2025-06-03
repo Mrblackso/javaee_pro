@@ -53,7 +53,7 @@
               </el-icon>
               <span>用户管理</span>
             </template>
-            <el-menu-item>管理员信息</el-menu-item>
+            <el-menu-item index="/manager/Admin">管理员信息</el-menu-item>
             <el-menu-item index="/manager/Employee">员工信息</el-menu-item>
           </el-sub-menu>
           <!--          个人信息-->
@@ -107,6 +107,10 @@ const  data = reactive({
 
 <style>
 .el-menu .is-active {
-  background-color: #e6ecf7 !important;
+  background-color: #CAEDF3FF !important;
+}
+
+.el-menu .is-active > .el-sub-menu__title {
+  background-color: #c3d3ef !important;
 }
 </style>
