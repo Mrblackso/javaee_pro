@@ -5,9 +5,9 @@ package com.example.springboot.service;
 //service 用于处理 数据
 
 import cn.hutool.core.util.StrUtil;
-import com.example.springboot.entity.Employee;
+import com.example.springboot.entity.Admin;
 import com.example.springboot.exception.CustomException;
-import com.example.springboot.mapper.EmployeeMapper;
+import com.example.springboot.mapper.AdminMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
@@ -22,46 +22,46 @@ import java.util.List;
 public class AdminService {
 
     @Resource
-    private EmployeeMapper employeeMapper;
-    public List<Employee> selectAll(@Param("employee") Employee employee) {
-        return employeeMapper.selectAll(employee);
+    private AdminMapper adminMapper;
+    public List<Admin> selectAll(@Param("admin") Admin admin) {
+        return adminMapper.selectAll(admin);
     }
 
 
-    public List<Employee> selectById(Integer id) {
-        return employeeMapper.selectById(id);
+    public List<Admin> selectById(Integer id) {
+        return adminMapper.selectById(id);
     }
 
-    public PageInfo<Employee> selectPages(Employee employee, Integer pageNum, Integer pageSize) {
+    public PageInfo<Admin> selectPages(Admin admin, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Employee> list = employeeMapper.selectAll(employee);
+        List<Admin> list = adminMapper.selectAll(admin);
         return PageInfo.of(list);
     }
 
-    public void add(Employee employee) {
-        String  username = employee.getUsername();
-        Employee DbEmployee = employeeMapper.selectByUsername(username);
-        if(DbEmployee != null){
+    public void add(Admin admin) {
+        String  username = admin.getUsername();
+        Admin DbAdmin = adminMapper.selectByUsername(username);
+        if(DbAdmin != null){
 //        数据库中有 该名字
             throw new CustomException("500", "用户已存在");
         }
-        if(StrUtil.isBlank(employee.getPassword())){
-            employee.setPassword("123");//默认密码
+        if(StrUtil.isBlank(admin.getPassword())){
+            admin.setPassword("admin");//默认密码
         }
-        if(StrUtil.isBlank(employee.getName())){
-            employee.setName(employee.getUsername());//默认名称
+        if(StrUtil.isBlank(admin.getName())){
+            admin.setName(admin.getUsername());//默认名称
         }
-        employee.setRole("EMP");
-        employeeMapper.add(employee);
+        admin.setRole("ADMIN");
+        adminMapper.add(admin);
 
     }
 
-    public void updata(Employee employee) {
-        employeeMapper.updataById(employee);
+    public void updata(Admin admin) {
+        adminMapper.updataById(admin);
     }
 
     public void deleteById(Integer id) {
-        employeeMapper.deleteById(id);
+        adminMapper.deleteById(id);
     }
 
     public void deleteBatch(List<Integer> ids) {
@@ -70,25 +70,25 @@ public class AdminService {
         }
     }
 
-    public Employee login(Employee employee) {
-        String  username = employee.getUsername();
-        Employee DbEmployee = employeeMapper.selectByUsername(username);
-        if(DbEmployee == null){
+    public Admin login(Admin admin) {
+        String  username = admin.getUsername();
+        Admin DbAdmin = adminMapper.selectByUsername(username);
+        if(DbAdmin == null){
 //        数据库中没有 该名字
             throw new CustomException("500", "用户不存在");
 
         }
-        String  password = employee.getPassword();
-        if(!DbEmployee.getPassword().equals(password)){
+        String  password = admin.getPassword();
+        if(!DbAdmin.getPassword().equals(password)){
 //            密码不匹配
-            DbEmployee.setPassword(null);
+            DbAdmin.setPassword(null);
             throw new CustomException("500", "密码错误");
 
         }
-        return DbEmployee;
+        return DbAdmin;
     }
 
-    public void register(Employee employee) {
-        this.add(employee);
-    }
+//    public void register(Admin admin) {
+//        this.add(admin);
+//    }
 }

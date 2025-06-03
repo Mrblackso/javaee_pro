@@ -33,12 +33,7 @@
         <el-table-column type="selection"  stripe  width="55"/>
 
         <el-table-column label="账号" prop="username"/>
-        <el-table-column label="性别" prop="sex"/>
-        <el-table-column label="工号" prop="no"/>
-        <el-table-column label="年龄" prop="age"/>
-        <el-table-column label="个人介绍" prop="description" show-overflow-tooltip />
-<!--        show-overflow-tooltip 放不下时 鼠标 移动 显示全部 -->
-        <el-table-column label="部门" prop="departmentId"/>
+        <el-table-column label="名称" prop="name"/>
 <!--        操作部分-->
         <el-table-column label="操作"  width="120px">
           <template #default="scope">
@@ -87,28 +82,6 @@
             </el-form-item>
 
 
-            <el-form-item label="性别">
-              <el-radio-group v-model="data.form.sex">
-                <el-radio value="男">男</el-radio>
-                <el-radio value="女">女</el-radio>
-              </el-radio-group>
-            </el-form-item>
-
-
-            <el-form-item label="工号" prop="no">
-              <el-input v-model="data.form.no" autocomplete="off" placeholder="请输入工号"/>
-            </el-form-item>
-             <el-form-item label="年龄">
-              <el-input-number   style="width: 180px" :min="18" v-model="data.form.age" autocomplete="off" placeholder="请输入年龄"/>
-            </el-form-item>
-
-            <el-form-item label="个人介绍">
-              <el-input :rows="3" type="textarea" v-model="data.form.description" autocomplete="off" placeholder="请输入个人介绍"/>
-            </el-form-item>
-
-            <el-form-item label="所在部门">
-              <el-input  v-model="data.form.departmentId" autocomplete="off" placeholder="请输入所在部门"/>
-            </el-form-item>
           </el-form>
 
 
@@ -152,16 +125,13 @@ const data = reactive({
     name: [
       { required: true, message: '请输入名称', trigger: 'blur' },
     ],
-    no: [
-      { required: true, message: '请输入工号', trigger: 'blur' },
-    ]
 
    }
 });
 
 
 const load = () => {
-  request.get('/employee/selectPages', {
+  request.get('/admin/selectPages', {
     params: {
       pageNum: data.pageNum,
       pageSize: data.pageSize,
@@ -205,7 +175,7 @@ const save = () => {
 
     // 验证通过，开始保存
     if (data.form.id) {
-      request.post('/employee/updata', data.form).then(res => {
+      request.post('/admin/updata', data.form).then(res => {
         if (res.code === '200') {
           ElMessage.success('更新成功');
           data.formVisible = false;
@@ -217,7 +187,7 @@ const save = () => {
       return;
     }
 
-    request.post('/employee/add', data.form).then(res => {
+    request.post('/admin/add', data.form).then(res => {
       if (res.code === '200') {
         ElMessage.success('新增成功');
         data.formVisible = false;
@@ -239,7 +209,7 @@ const handleEdit = (row) => {
 //删除
 const del  = (id) => {
   ElMessageBox.confirm('删除后数据无法恢复,请确认 qwq ','删除确认', {type : 'warning'}).then(()=>
-      request.delete(`/employee/deleteById/${id}`).then(res => {
+      request.delete(`/admin/deleteById/${id}`).then(res => {
          if (res.code === '200') {
           alert('删除成功');
           data.formVisible = false;
@@ -279,7 +249,7 @@ const delBatch = () => {
   }
 
   ElMessageBox.confirm('删除后数据无法恢复,请确认 qwq ','删除确认', {type : 'warning'}).then(()=>
-      request.delete(`/employee/deleteBatch/`, {data : data.ids}).then(res => {
+      request.delete(`/admin/deleteBatch/`, {data : data.ids}).then(res => {
          if (res.code === '200') {
           // alert('删除成功');
            ElMessage.success( '删除成功')

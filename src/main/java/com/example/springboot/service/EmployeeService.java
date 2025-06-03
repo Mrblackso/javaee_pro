@@ -4,6 +4,7 @@ package com.example.springboot.service;
 
 //service 用于处理 数据
 
+import cn.hutool.core.util.StrUtil;
 import com.example.springboot.entity.Employee;
 import com.example.springboot.exception.CustomException;
 import com.example.springboot.mapper.EmployeeMapper;
@@ -38,7 +39,21 @@ public class EmployeeService {
     }
 
     public void add(Employee employee) {
+        String  username = employee.getUsername();
+        Employee DbEmployee = employeeMapper.selectByUsername(username);
+        if(DbEmployee != null){
+//        数据库中有 该名字
+            throw new CustomException("500", "用户已存在");
+        }
+        if(StrUtil.isBlank(employee.getPassword())){
+            employee.setPassword("emp");//默认密码
+        }
+        if(StrUtil.isBlank(employee.getName())){
+            employee.setName(employee.getUsername());//默认名称
+        }
+        employee.setRole("EMP");
         employeeMapper.add(employee);
+
     }
 
     public void updata(Employee employee) {
@@ -74,9 +89,6 @@ public class EmployeeService {
     }
 
     public void register(Employee employee) {
-        String username = employee.getUsername();
-        if (employeeMapper.selectByUsername(username) != null) {
-            throw new CustomException("500", "用户已存在");
-        }
+        this.add(employee);
     }
 }
