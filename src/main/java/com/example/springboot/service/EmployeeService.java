@@ -72,4 +72,11 @@ public class EmployeeService {
         }
         return DbEmployee;
     }
+
+    public void register(Employee employee) {
+        String username = employee.getUsername();
+        if (employeeMapper.selectByUsername(username) != null) {
+            throw new CustomException("500", "用户已存在");
+        }
+    }
 }
