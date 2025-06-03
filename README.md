@@ -29,6 +29,40 @@ git pull                # 拉取最新的远程代码到主分支，也就是 ma
 git push origin main    # 推送到远程仓库
 ```
 
+**注意**
+如果 **git pull** 时出现该警告
+```
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+fatal: Need to specify how to reconcile divergent branches.
+```
+**请使用以下方法解决**
+```
+# 1. 使用变基方式拉取远程更新（推荐）
+git pull --rebase origin main
+
+# 2. 如果出现冲突：
+#    - 用编辑器解决冲突文件（搜索 >>>>> 标记）
+#    - 标记冲突已解决
+git add 冲突文件名
+
+#    - 继续变基操作
+git rebase --continue
+
+# 3. 成功变基后推送更新
+git push origin main
+```
+
 ---
 ## 流程图
 ```mermaid
