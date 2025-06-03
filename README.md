@@ -17,10 +17,14 @@ sequenceDiagram
 ---
 ## 数据模型设计
 ### Employee用户模型
-| 字段       | 类型     |说明|
-|----------|--------|-|
-| username | string ||
-| password | string ||
-| role     |||
+|      字段       | 类型     | 说明   |
+|:-------------:|--------|------|
+|   username    | string | 用户名  |
+|   password    | string | 密码   |
+|     role      |        |      |
+|  description  | string | 个人介绍 |
+| department_id | int    | 部门ID |
+|      sex      | string | 性别   |
+|      no       | string | 工号   |
 
 
