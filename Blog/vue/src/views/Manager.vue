@@ -64,7 +64,7 @@
             个人信息
           </el-menu-item>
           <!--        退出登录-->
-          <el-menu-item index="/login">
+          <el-menu-item @click="logout">
             <el-icon>
               <SwitchButton/>
             </el-icon>
@@ -103,6 +103,10 @@ const  data = reactive({
    user:JSON.parse(localStorage.getItem('token'))
 })
 
+const logout = () => {
+  localStorage.removeItem('token')
+  router.push('/login')
+}
 </script>
 
 <style>

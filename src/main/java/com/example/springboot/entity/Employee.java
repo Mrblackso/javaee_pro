@@ -2,7 +2,7 @@ package com.example.springboot.entity;
 
 //实体类
 
-public class Employee {
+public class Employee extends Account{
     // ID
     private Integer id;
     // 密码

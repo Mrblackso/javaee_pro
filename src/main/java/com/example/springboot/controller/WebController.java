@@ -1,8 +1,10 @@
 package com.example.springboot.controller;
 
 import com.example.springboot.common.Result;
+import com.example.springboot.entity.Account;
 import com.example.springboot.entity.Employee;
 import com.example.springboot.exception.CustomException;
+import com.example.springboot.service.AdminService;
 import com.example.springboot.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,9 @@ public class WebController {
 
     @Resource
     private EmployeeService employeeService;
+
+    @Resource
+    private AdminService adminService;
 //    可以通过get 请求
     @GetMapping("/hello")
     public  Result hello() {
@@ -47,9 +52,17 @@ public class WebController {
     }
 
     @PostMapping("/login")
-    public Result login(@RequestBody Employee employee){
-        Employee DbEmployee = employeeService.login(employee);
-        return  Result.success(DbEmployee);
+    public Result login(@RequestBody Account account){
+        Account result=null;
+        if(("ADMIN").equals(account.getRole())){
+           result = adminService.login(account);
+        }else if(("EMP").equals(account.getRole())){
+            result= employeeService.login(account);
+        }else {
+            return Result.error("400","角色错误");
+        }
+
+        return Result.success(result);
     }
 
     @PostMapping("/register")

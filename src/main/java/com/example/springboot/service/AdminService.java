@@ -5,6 +5,7 @@ package com.example.springboot.service;
 //service 用于处理 数据
 
 import cn.hutool.core.util.StrUtil;
+import com.example.springboot.entity.Account;
 import com.example.springboot.entity.Admin;
 import com.example.springboot.exception.CustomException;
 import com.example.springboot.mapper.AdminMapper;
@@ -70,15 +71,15 @@ public class AdminService {
         }
     }
 
-    public Admin login(Admin admin) {
-        String  username = admin.getUsername();
+    public Admin login(Account account) {
+        String  username = account.getUsername();
         Admin DbAdmin = adminMapper.selectByUsername(username);
         if(DbAdmin == null){
 //        数据库中没有 该名字
             throw new CustomException("500", "用户不存在");
 
         }
-        String  password = admin.getPassword();
+        String  password = account.getPassword();
         if(!DbAdmin.getPassword().equals(password)){
 //            密码不匹配
             DbAdmin.setPassword(null);

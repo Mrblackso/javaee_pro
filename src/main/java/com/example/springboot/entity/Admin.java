@@ -2,7 +2,7 @@ package com.example.springboot.entity;
 
 
 
-public class Admin {
+public class Admin extends Account{
     private Integer id;
     // 密码
     private String password;

@@ -5,6 +5,7 @@ package com.example.springboot.service;
 //service 用于处理 数据
 
 import cn.hutool.core.util.StrUtil;
+import com.example.springboot.entity.Account;
 import com.example.springboot.entity.Employee;
 import com.example.springboot.exception.CustomException;
 import com.example.springboot.mapper.EmployeeMapper;
@@ -70,15 +71,15 @@ public class EmployeeService {
         }
     }
 
-    public Employee login(Employee employee) {
-        String  username = employee.getUsername();
+    public Employee login(Account account) {
+        String  username = account.getUsername();
         Employee DbEmployee = employeeMapper.selectByUsername(username);
         if(DbEmployee == null){
 //        数据库中没有 该名字
             throw new CustomException("500", "用户不存在");
 
         }
-        String  password = employee.getPassword();
+        String  password = account.getPassword();
         if(!DbEmployee.getPassword().equals(password)){
 //            密码不匹配
             DbEmployee.setPassword(null);

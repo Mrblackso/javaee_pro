@@ -14,9 +14,16 @@
           <el-form-item  style="padding-left: 15px" prop="password">
             <el-input show-password size="large" v-model="data.form.password " placeholder="请输入密码" :prefix-icon="Lock" style="height: 50px"></el-input>
           </el-form-item>
+
+          <el-form-item  style="padding-left: 15px;height: 50px"  prop="role">
+            <el-select v-model="data.form.role">
+              <el-option label="管理员" value="ADMIN"></el-option>
+              <el-option label="员工" value="EMP"></el-option>
+            </el-select>
+          </el-form-item>
 <!---->
-          <div >
-            <el-button size="large" type="primary" style="width: 100%;height: 40px;margin-top: 20px" @click="login">登 录</el-button>
+          <div style="padding-left: 15px">
+              <el-button size="large" type="primary" style="width: 100%;height: 40px;margin-top: 10px;" @click="login">登 录</el-button>
           </div>
           <div style="text-align: right;padding-top: 5px ;color: white">还没有账号？ 请 <a style="color: deepskyblue;text-decoration: none" href="/register">注册</a></div>
           <div style="height: 5px"></div>
@@ -38,7 +45,7 @@ import { ElMessage } from 'element-plus'
 const router = useRouter()
 
 const data = reactive({
-  form: {},
+  form: {role:'ADMIN'},
   rules: {
     username: [
       { required: true, message: '请输入账号', trigger: 'blur' }
