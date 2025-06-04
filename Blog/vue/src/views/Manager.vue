@@ -79,10 +79,9 @@
       <!-- 右侧内容 -->
       <div style="flex: 1; padding: 10px; background-color: #f5f7ff;">
         <div style="; min-height: 100px;">
-          <RouterView/>
+          <RouterView @updateuser="updateuser" />
         </div>
       </div>
-
     </div>
 
   </div>
@@ -106,6 +105,11 @@ const  data = reactive({
 const logout = () => {
   localStorage.removeItem('token')
   router.push('/login')
+}
+
+const updateuser = () => {
+  data.user = JSON.parse(localStorage.getItem('token'))
+
 }
 </script>
 
