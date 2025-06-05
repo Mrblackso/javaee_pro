@@ -6,14 +6,14 @@
 <mapper namespace="com.example.springboot.mapper.AdminMapper">
 
     <insert id="add">
-        insert into admin(id,username, password,role, name)
-        values(#{id},#{username},#{password}, #{role}, #{name})
+        insert into admin(id,username, password,role, name, avatar)
+        values(#{id},#{username},#{password}, #{role}, #{name},  #{avatar})
     </insert>
 
 
     <update id="updataById">
         UPDATE admin
-        SET name = #{name}, username = #{username},password = #{password},role = #{role}
+        SET name = #{name}, username = #{username},password = #{password},role = #{role}, avatar = #{avatar}
         WHERE id = #{id}
     </update>
 

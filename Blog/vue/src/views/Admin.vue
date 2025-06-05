@@ -33,6 +33,13 @@
         <el-table-column type="selection"  stripe  width="55"/>
 
         <el-table-column label="账号" prop="username"/>
+        <el-table-column label="头像" prop="avatar">
+          <template #default="scope">
+            <img v-if="scope.row.avatar" :src="scope.row.avatar"
+                 style="display: block;width: 40px; height: 40px; border-radius:50%"
+            />
+          </template>
+        </el-table-column>
         <el-table-column label="名称" prop="name"/>
 <!--        操作部分-->
         <el-table-column label="操作"  width="120px">
@@ -74,8 +81,22 @@
           <el-form ref="formRef"  :rules="data.rules" :model="data.form" style="padding-right: 40px ;padding-top: 20px " label-width="80px">
 
             <el-form-item label="账号"  prop="username">
-              <el-input v-model="data.form.username" autocomplete="off" placeholder="请输入账号" />
+              <el-input disabled v-model="data.form.username" autocomplete="off" placeholder="请输入账号" />
             </el-form-item>
+
+            <el-form-item label="头像" >
+
+              <el-upload
+
+                  action="http://localhost:8080/files/upload"
+                  list_type="picture"
+                  :on-success="handleAvatarSuccess"
+              >
+                <el-button type="primary">上传头像</el-button>
+              </el-upload>
+
+            </el-form-item>
+
 
             <el-form-item label="名称"  prop="name" >
               <el-input v-model="data.form.name" autocomplete="off" placeholder="请输入名称" />
@@ -261,7 +282,10 @@ const delBatch = () => {
       }).catch()
   )
  }
-
+const handleAvatarSuccess  = (res) => {
+  console.log(res)
+  data.form.avatar = res.data
+}
 
 const formRef = ref(null);
 

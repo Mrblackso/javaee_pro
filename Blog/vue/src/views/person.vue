@@ -1,7 +1,25 @@
 <template>
 
-    <div   class="card" style="width: 50% ;padding-left: 20px;padding-top: 10px">
+    <div   class="card" style="width:50% ;padding-left: 20px;padding-top: 10px">
+
         <el-form ref="formRef"  :rules="data.rules" :model="data.form" style="padding-right: 40px ;padding-top: 20px " label-width="80px">
+
+          <div style="width: 100%;display: flex;justify-content: center;margin-bottom: 20px">
+            <el-form-item  >
+
+              <el-upload
+                  class="avatar_uploader"
+                  action="http://localhost:8080/files/upload"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+              >
+                <!-- 使用 :src 动态绑定变量 -->
+                <img v-if="data.form.avatar" :src="data.form.avatar" class="avatar" />
+                <el-icon v-else class="avatar_uploader-icon"><Plus /></el-icon>
+              </el-upload>
+
+            </el-form-item>
+          </div>
 
 <!--          disabled 禁用-->
           <el-form-item label="账号"  prop="username">
@@ -57,7 +75,8 @@
 import { ElMessageBox,ElMessage } from 'element-plus';
 import { reactive, onMounted , ref,} from 'vue';
 import request from '../utils/request';
-import { Search, Edit, Delete } from '@element-plus/icons-vue';
+
+import { Search, Edit, Delete,Plus } from '@element-plus/icons-vue';
 
 const formRef = ref()
 
@@ -119,4 +138,44 @@ const updateuser = () => {
 
 };
 
+const handleAvatarSuccess  = (res) => {
+  console.log(res)
+  data.form.avatar = res.data
+}
+
 </script>
+
+<style scoped>
+.avatar_uploader .avatar{
+  width: 200px;
+  height: 200px;
+  display: block;
+}
+
+
+</style>
+
+<style>
+
+.avatar_uploader .el-upload{
+    border: 1px dashed var(--el-border-color);
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transform: var(--el-transition-duration-fast);
+
+}
+
+.avatar_uploader .el-upload:hover{
+    border-color: var(--el-color-primary);
+}
+
+.el-icon.avatar_uploader-icon{
+  font-size: 28px;
+  color: #8c939d;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+}
+</style>

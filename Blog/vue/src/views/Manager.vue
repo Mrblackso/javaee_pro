@@ -13,8 +13,8 @@
       </div>
       <div style="flex:1;"></div>
       <div style="width: 150px;display: flex ;align-items: center;padding-right: 10px">
-        <img src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" alt=""
-             style="width: 40px;height: 40px">
+        <img :src="data.user.avatar ||'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'" alt=""
+             style="width: 40px;height: 40px ;border-radius: 50%">
         <span style="color: white;margin-left: 5px">{{data.user.name}}</span>
       </div>
     </div>
