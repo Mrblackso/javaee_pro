@@ -6,6 +6,8 @@ import com.example.springboot.entity.Employee;
 import com.example.springboot.exception.CustomException;
 import com.example.springboot.service.AdminService;
 import com.example.springboot.service.EmployeeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,6 +17,7 @@ import java.util.Map;
 
 //标注这个是接口 返回 json
 @RestController()
+@Tag(name = "网页接口")
 public class WebController {
 
     @Resource
@@ -23,16 +26,19 @@ public class WebController {
     @Resource
     private AdminService adminService;
 //    可以通过get 请求
+    @Operation(summary = "返回 hello")
     @GetMapping("/hello")
     public  Result hello() {
         return Result.success("hello");
     }
 
+    @Operation(summary = "返回天气很好")
     @GetMapping("/weather")
     public Result weather() {
         return Result.success("today's weather is sunny! qwq");
     }
 
+    @Operation(summary = "返回程序自己抛出的异常")
     @GetMapping("/count")
     public Result count() {
 //        int res=1/0;
@@ -43,6 +49,7 @@ public class WebController {
 
 
     //返回一个 json 数据
+    @Operation(summary = "返回一个 Json 数据")
     @GetMapping("/map")
     public Result map() {
         HashMap<String,Object> map = new HashMap<>();
@@ -51,6 +58,7 @@ public class WebController {
         return Result.success(map);
     }
 
+    @Operation(summary = "用户登录接口")
     @PostMapping("/login")
     public Result login(@RequestBody Account account){
         Account result=null;
@@ -65,6 +73,7 @@ public class WebController {
         return Result.success(result);
     }
 
+    @Operation(summary = "用户注册接口")
     @PostMapping("/register")
     public Result register(@RequestBody Employee employee) {
         employeeService.register(employee);

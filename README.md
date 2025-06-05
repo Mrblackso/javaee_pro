@@ -1,6 +1,40 @@
 # java EE 期末作业
 
 ---
+[接口测试页面](http://localhost:8080/swagger-ui/index.html)
+
+## 网页接口
+| 接口         | 描述     |
+|:-----------|--------|
+| /register  | 注册     |
+| /login     | 登录     |
+| /weather   | 返回天气   |
+| /map       | 返回json |
+| /hello     | hello  |
+| /count     | 抛出异常   |
+
+## 员工接口
+| /employee        | 描述       |
+|------------------|----------|
+| /updata          | 更新员工数据   |
+| /add             | 添加员工     |
+| /selectPages     | 分页查询     |
+| /selectById/{id} | 根据id查询用户 |
+| /selectAll       | 查询所有用户   |
+| /deleteById/{id} | 根据id删除用户 |
+| /deleteBatch     | 批量删除     |
+
+## 管理员接口
+| /admin           | 描述     |
+|------------------|--------|
+| /updata          | 更新信息   |
+| /add             | 添加用户   |
+| /selectPages     | 分页查询   |
+| /selectById/{id} | 根据id查询 |
+| /selectAll       | 查询所有   |
+| /deleteById/{id} | 根据id删除 |
+| /deleteBatch     | 批量删除   |
+---
 ## git 操作
 
 每次提交代码前都要更新远程仓库到本地
