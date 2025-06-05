@@ -31,9 +31,9 @@ public class FileController {
         if (file.isEmpty()) {
             throw new CustomException("500", "上传的文件为空，请重新选择文件");
         }
-        String originalFilename = file.getOriginalFilename();
+        String originalFilename = file.getOriginalFilename();//xx.png
         if(!FileUtil.isDirectory(filePath)){//判断文件夹是否存在
-            FileUtil.mkdir(filePath);//创建文件夹
+            FileUtil.mkdir(filePath);//创建一个files目录
         }
 
         String fileName = System.currentTimeMillis()+"_"+originalFilename;
@@ -57,7 +57,7 @@ public class FileController {
     public void download(@PathVariable String fileName,  HttpServletResponse response){
         try {
 
-            // 使用 Java 8 兼容的编码方式 qwq
+            // 使用 Java 8 兼容的编码方式 
             String encodedFileName = URLEncoder.encode(fileName, "UTF-8");
             response.addHeader("Content-Disposition", "attachment; " + encodedFileName);
             response.setContentType("application/octet-stream");
