@@ -56,6 +56,11 @@
             <version>5.8.22</version> <!-- 版本号可以根据需要调整 -->
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
 
     </dependencies>
     <dependencyManagement>

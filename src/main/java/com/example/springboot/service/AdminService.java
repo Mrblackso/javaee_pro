@@ -29,7 +29,7 @@ public class AdminService {
     }
 
 
-    public List<Admin> selectById(Integer id) {
+    public Admin selectById(Integer id) {
         return adminMapper.selectById(id);
     }
 
@@ -87,6 +87,37 @@ public class AdminService {
 
         }
         return DbAdmin;
+    }
+
+
+    public void updatePassword(Account account) {
+
+        Integer id=account.getId();
+
+        if(id==null){
+            //System.out.println("500 不存在");
+            throw new CustomException("500", "用户不存在");
+        }
+        Admin DbAdmin = this.selectById(id);
+
+//        System.out.println(DbAdmin.getId());
+//        System.out.println(DbAdmin.getPassword());
+//        System.out.println("<-------------------->");
+//        System.out.println(account.getPassword());
+//        System.out.println(account.getNewPassword());
+//        System.out.println(DbAdmin.getPassword());
+//        System.out.println("<-------------------->");
+
+        System.out.println(DbAdmin.getPassword());
+        System.out.println(account.getPassword());
+        System.out.println(account.getNewPassword());
+        if(!DbAdmin.getPassword().equals(account.getPassword())){
+            //密码 不匹配
+            throw new CustomException("500", "对不起，原密码错误");
+        }
+        DbAdmin.setPassword(account.getNewPassword());
+
+        this.updata(DbAdmin);
     }
 
 //    public void register(Admin admin) {

@@ -13,7 +13,7 @@
 
     <update id="updataById">
         UPDATE admin
-        SET name = #{name}, username = #{username},password = #{password},role = #{role},
+        SET name = #{name}, username = #{username},password = #{password},role = #{role}
         WHERE id = #{id}
     </update>
 

@@ -63,6 +63,14 @@
             </el-icon>
             个人信息
           </el-menu-item>
+<!--          修改密码-->
+          <el-menu-item index="/manager/password">
+            <el-icon>
+              <Lock/>
+            </el-icon>
+           修改密码
+          </el-menu-item>
+
           <!--        退出登录-->
           <el-menu-item @click="logout">
             <el-icon>
@@ -94,7 +102,7 @@ import {useRouter} from 'vue-router'
 const router = useRouter()
 import {User} from '@element-plus/icons-vue'
 import {House} from '@element-plus/icons-vue'
-import {DataAnalysis, SwitchButton, UserFilled} from '@element-plus/icons-vue'
+import {DataAnalysis, SwitchButton, UserFilled,Lock} from '@element-plus/icons-vue'
  import {reactive} from 'vue'
 
 

@@ -26,7 +26,7 @@ public class EmployeeController {
 
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id){
-        List<Employee> list = employeeService.selectById(id);
+        Employee list = employeeService.selectById(id);
         return Result.success(list);
     }
 

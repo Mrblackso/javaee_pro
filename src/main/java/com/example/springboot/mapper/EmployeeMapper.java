@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface EmployeeMapper {
 
-    List<Employee> selectById(Integer id);
+    Employee selectById(Integer id);
 
     void add(Employee employee);
 
@@ -21,4 +21,7 @@ public interface EmployeeMapper {
 
     @Select( "select * from employee where username = #{username}")
     Employee selectByUsername(String username);
+
+    @Select(  "select * from employee where no = #{no}")
+    Employee selectByNO(String no);
 }

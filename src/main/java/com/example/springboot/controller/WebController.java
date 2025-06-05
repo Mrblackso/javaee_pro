@@ -71,4 +71,27 @@ public class WebController {
         return Result.success();
     }
 
+    @PutMapping("/updatePassword")
+    public Result updatePassword(@RequestBody Account account) {
+
+
+       Account result = null;
+
+//        信息已经传入
+        System.out.println(account.getRole());
+        System.out.println("ADMIN");
+//        System.out.println("EMP");
+
+        if("ADMIN".equals(account.getRole())){
+            //System.out.println("now step in");
+            adminService.updatePassword(account);
+        }else if("EMP".equals(account.getRole())){
+            employeeService.updatePassword(account);
+        }
+        else{
+            return Result.error("400","非法角色");
+        }
+        return Result.success();
+    }
+
 }

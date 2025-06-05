@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AdminMapper {
 
-    List<Admin> selectById(Integer id);
+    Admin selectById(Integer id);
 
     void add(Admin admin);
 

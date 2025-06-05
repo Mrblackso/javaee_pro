@@ -11,6 +11,9 @@
           <el-form-item style="padding-left: 15px" prop="username">
             <el-input size="large" v-model="data.form.username" placeholder="请输入账号" :prefix-icon="User" style="height: 50px"></el-input>
           </el-form-item>
+          <el-form-item style="padding-left: 15px" prop="no">
+            <el-input size="large" v-model="data.form.no" placeholder="请输入工号" :prefix-icon="no" style="height: 50px"></el-input>
+          </el-form-item>
           <el-form-item  style="padding-left: 15px" prop="password">
             <el-input show-password size="large" v-model="data.form.password " placeholder="请输入密码" :prefix-icon="Lock" style="height: 50px"></el-input>
           </el-form-item>
@@ -57,6 +60,9 @@ const data = reactive({
   rules: {
     username: [
       { required: true, message: '请输入账号', trigger: 'blur' }
+    ],
+    no: [
+      { required: true, message: '请输入工号', trigger: 'blur' }
     ],
     password: [
       { required: true, message: '请输入密码', trigger: 'blur' }

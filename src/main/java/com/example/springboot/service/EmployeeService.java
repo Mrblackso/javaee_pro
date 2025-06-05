@@ -6,6 +6,7 @@ package com.example.springboot.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.example.springboot.entity.Account;
+import com.example.springboot.entity.Admin;
 import com.example.springboot.entity.Employee;
 import com.example.springboot.exception.CustomException;
 import com.example.springboot.mapper.EmployeeMapper;
@@ -29,7 +30,7 @@ public class EmployeeService {
     }
 
 
-    public List<Employee> selectById(Integer id) {
+    public Employee selectById(Integer id) {
         return employeeMapper.selectById(id);
     }
 
@@ -46,6 +47,12 @@ public class EmployeeService {
 //        数据库中有 该名字
             throw new CustomException("500", "用户已存在");
         }
+        Employee DbEmployee1 = employeeMapper.selectByNO(employee.getNo());
+        if(DbEmployee1 != null){
+            throw new CustomException("500", "工号已存在");
+
+        }
+
         if(StrUtil.isBlank(employee.getPassword())){
             employee.setPassword("emp");//默认密码
         }
@@ -79,6 +86,7 @@ public class EmployeeService {
             throw new CustomException("500", "用户不存在");
 
         }
+
         String  password = account.getPassword();
         if(!DbEmployee.getPassword().equals(password)){
 //            密码不匹配
@@ -86,10 +94,23 @@ public class EmployeeService {
             throw new CustomException("500", "密码错误");
 
         }
+
+
         return DbEmployee;
     }
 
     public void register(Employee employee) {
         this.add(employee);
+    }
+
+    public void updatePassword(Account account) {
+        Integer id=account.getId();
+        Employee DbEmployee = this.selectById(id);
+        if(!DbEmployee.getPassword().equals(account.getPassword())){
+            //密码 不匹配
+            throw new CustomException("500", "对不起，原密码错误");
+        }
+        DbEmployee.setPassword(account.getNewPassword());
+        this.updata(DbEmployee);
     }
 }

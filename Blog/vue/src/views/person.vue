@@ -25,6 +25,7 @@
             <el-form-item label="工号" prop="no">
               <el-input disabled v-model="data.form.no" autocomplete="off" placeholder="请输入工号"/>
             </el-form-item>
+
             <el-form-item label="年龄">
               <el-input-number   style="width: 180px" :min="18" v-model="data.form.age" autocomplete="off" placeholder="请输入年龄"/>
             </el-form-item>

@@ -26,7 +26,7 @@ public class AdminController {
 
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id){
-        List<Admin> list = adminService.selectById(id);
+        Admin list = adminService.selectById(id);
         return Result.success(list);
     }
 
