@@ -11,7 +11,7 @@ public class SpringDocConfig {
     public OpenAPI customAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("员工管理系统接口")
+                        .title("员工管理系统测试")
                         .version("1.0")
                 );
     }
