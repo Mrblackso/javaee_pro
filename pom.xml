@@ -56,6 +56,12 @@
             <version>5.8.22</version> <!-- 版本号可以根据需要调整 -->
         </dependency>
 
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+
 
     </dependencies>
     <dependencyManagement>
