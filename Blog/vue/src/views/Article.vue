@@ -199,6 +199,7 @@ const baseUrl= 'http://localhost:8080';
 const editorRef=shallowRef()
 const mode = 'default'
 const editorConfig = {MENU_CONF:{}}
+import { nextTick } from 'vue' // 确保导入nextTick
 
 editorConfig.MENU_CONF['uploadImage']={
   server:  baseUrl+'/files/wang/upload',
@@ -212,6 +213,13 @@ onBeforeUnmount(() => {
 
 const handleCreated = (editor) => {
   editorRef.value = editor
+  // 编辑器创建后立即检查是否有待设置的内容
+  if (data.form.content) {
+    nextTick(() => {
+      editor.setHtml(data.form.content)
+      console.log('编辑器初始化内容:', data.form.content)
+    })
+  }
 }
 
 //
@@ -300,6 +308,7 @@ const save = () => {
 const handleEdit = (row) => {
   data.formVisible = true;
   data.form = { ...row };
+
 
 };
 
