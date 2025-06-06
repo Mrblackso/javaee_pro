@@ -46,6 +46,15 @@
             数据统计
           </el-menu-item>
           <!--          -->
+
+          <el-menu-item index="/manager/article">
+            <el-icon>
+              <Document/>
+            </el-icon>
+            文章管理
+          </el-menu-item>
+
+<!--          -->
           <el-sub-menu index="1">
             <template #title>
               <el-icon>
@@ -102,7 +111,7 @@ import {useRouter} from 'vue-router'
 const router = useRouter()
 import {User} from '@element-plus/icons-vue'
 import {House} from '@element-plus/icons-vue'
-import {DataAnalysis, SwitchButton, UserFilled,Lock} from '@element-plus/icons-vue'
+import {DataAnalysis, SwitchButton, UserFilled,Lock,Document} from '@element-plus/icons-vue'
  import {reactive} from 'vue'
 
 

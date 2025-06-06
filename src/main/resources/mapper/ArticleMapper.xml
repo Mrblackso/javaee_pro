@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.springboot.mapper.ArticleMapper">
+
+    <insert id="add">
+        insert into article(id,title, img,description, content,time)
+        values(#{id},#{title},#{img},#{description}, #{content},#{time})
+    </insert>
+
+
+    <update id="updataById">
+        UPDATE article
+        SET title=#{title}, img=#{img},description=#{description}, content=#{content},time=#{time}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM article
+        WHERE id = #{id}
+    </delete>
+
+
+    <!--    这里的id和 mapper接口的方法名一一对应    resultType 对应返回数据-->
+<!--                 动态模糊查询-->
+<!--                name like concat('%',#{name},'%')-->
+    <select id="selectAll" resultType="com.example.springboot.entity.Article">
+        select * from article
+        <where>
+            <if test="article != null and article.title != null and article.title != ''">
+                AND title LIKE CONCAT('%', #{article.title}, '%')
+            </if>
+        </where>
+        order by id asc
+    </select>
+
+
+    <select id="selectById" resultType="com.example.springboot.entity.Article">
+        select * from article where id = #{id}
+    </select>
+</mapper>
+<!--xml 与mapper 一一对应 -->

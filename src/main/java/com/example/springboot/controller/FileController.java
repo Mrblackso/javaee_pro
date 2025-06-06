@@ -13,6 +13,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -74,6 +78,32 @@ public class FileController {
             throw new CustomException("500","文件下载失败");
         }
 
+    }
+
+
+    @PostMapping("wang/upload")
+    public Map<String, Object> wangEditorUpload(MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        if(!FileUtil.isDirectory(filePath)){
+            FileUtil.mkdir(filePath);
+        }
+        String fileName = System.currentTimeMillis()+"_"+originalFilename;
+        String realPath = filePath+fileName;
+        try {
+            FileUtil.writeBytes(file.getBytes(),realPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new CustomException("500","文件上传失败");
+        }
+        String url = "http://localhost:8080/files/download/"+fileName;
+        Map<String, Object>resMap=new HashMap<>();
+        List<Map<String,Object>> list = new ArrayList<>();
+        Map<String,Object> urlMap = new HashMap<>();
+        urlMap.put("url",url);
+        list.add(urlMap);
+        resMap.put("errno",0);
+        resMap.put("data",list);
+        return resMap;
     }
 
 }
