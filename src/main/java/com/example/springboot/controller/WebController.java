@@ -80,6 +80,7 @@ public class WebController {
         return Result.success();
     }
 
+    @Operation(summary = "更新用户密码")
     @PutMapping("/updatePassword")
     public Result updatePassword(@RequestBody Account account) {
 

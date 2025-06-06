@@ -5,6 +5,8 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.json.JSONUtil;
 import com.example.springboot.common.Result;
 import com.example.springboot.exception.CustomException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@Tag(name = "文件上传下载")
 @RestController
 @RequestMapping("/files")
 public class FileController {
@@ -27,8 +29,9 @@ public class FileController {
 
     private static final String filePath =System.getProperty("user.dir")+"/files/";
 
+    @Operation(summary = "文件上传")
     @PostMapping("/upload")
-    public Result upload(MultipartFile file) {
+    public Result upload(@RequestParam("file") MultipartFile file) {
         //文件流形式 接受文件
         //loacl....8080/files/download/xxx.jpg
         // 检查文件是否为空
@@ -57,6 +60,7 @@ public class FileController {
 
 
     //文件下载
+    @Operation(summary = "文件下载", description = "通过文件名下载相应文件")
     @GetMapping("download/{fileName}")
     public void download(@PathVariable String fileName,  HttpServletResponse response){
         try {
@@ -81,6 +85,7 @@ public class FileController {
     }
 
 
+    @Operation(summary = "文件上传失败", description = "???")
     @PostMapping("wang/upload")
     public Map<String, Object> wangEditorUpload(MultipartFile file) {
         String originalFilename = file.getOriginalFilename();

@@ -7,7 +7,7 @@
 
     <insert id="add">
         insert into employee(id,username, password,role, name, sex, no, age, description, department_id,  avatar)
-        values(#{id},#{username},#{password}, #{role}, #{name}, #{sex}, #{no}, #{age}, #{description}, #{departmentId}),#{avatar}
+        values(#{id},#{username},#{password}, #{role}, #{name}, #{sex}, #{no}, #{age}, #{description}, #{departmentId}, #{avatar})
     </insert>
 
 

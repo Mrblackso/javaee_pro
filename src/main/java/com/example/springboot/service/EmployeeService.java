@@ -100,7 +100,8 @@ public class EmployeeService {
     }
 
     public void register(Employee employee) {
-        this.add(employee);
+        employeeMapper.add(employee);
+//        this.add(employee);
     }
 
     public void updatePassword(Account account) {
