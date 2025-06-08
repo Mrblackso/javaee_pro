@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card" style="margin-bottom: 5px">
+    <div class="card" style="margin-bottom: 5px; background-color: white">
       <!--      <el-card>-->
       <!--      <span style="display: inline-flex; align-items: center; margin-right: 6px;margin-top: 14px">-->
       <!--        <el-icon><Search/></el-icon>-->
@@ -18,7 +18,7 @@
       <!--      </el-card>-->
       <!--      <button @click="">提交</button>-->
     </div>
-    <div class="card" style="margin-bottom: 5px">
+    <div class="card" style="margin-bottom: 5px; background-color: white">
       <el-button type="primary" @click="handleAdd">新 增</el-button>
       <el-button type="danger"  @click="delBatch">批量删除</el-button>
 <!--      <el-button type="info">导 入</el-button>-->
