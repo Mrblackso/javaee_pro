@@ -18,6 +18,9 @@ public interface ArticleMapper {
 
     List<Article> selectAll(@Param("article") Article article);
 
+    @Select("select count(*) from article where date(time) = #{date}")
+    Integer selectCountByDate(@Param("date") String date);
+
 //    @Select( "select * from article where username = #{username}")
 //    Article selectByUsername(String username);
 }

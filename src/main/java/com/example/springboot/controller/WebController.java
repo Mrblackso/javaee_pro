@@ -1,18 +1,24 @@
 package com.example.springboot.controller;
 
+
+
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import com.example.springboot.common.Result;
 import com.example.springboot.entity.Account;
 import com.example.springboot.entity.Employee;
 import com.example.springboot.exception.CustomException;
 import com.example.springboot.service.AdminService;
+import com.example.springboot.service.ArticleService;
 import com.example.springboot.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 //标注这个是接口 返回 json
@@ -25,6 +31,8 @@ public class WebController {
 
     @Resource
     private AdminService adminService;
+    @Resource
+    private ArticleService articleService;
 //    可以通过get 请求
     @Operation(summary = "返回 hello")
     @GetMapping("/hello")
@@ -104,4 +112,32 @@ public class WebController {
         return Result.success();
     }
 
+    @Operation(summary = "文章线性表")
+    @GetMapping("/lineData")
+    public Result getLineData() {
+        Map<String, Object> map = new HashMap<>();
+
+        Date date = new Date();
+        DateTime start = DateUtil.offsetDay(date, -7);
+        List<DateTime> dateTimeList = DateUtil.rangeToList(start, date, DateField.DAY_OF_YEAR);
+        List<String> dateList = dateTimeList.stream().map(dateTime -> DateUtil.format(dateTime, "MM月dd日"))
+                .sorted(Comparator.naturalOrder()).collect(Collectors.toList());
+
+        System.out.println("==============");
+        System.out.println(dateList);
+
+        map.put("date", dateList);
+
+        List<Integer> countList = new ArrayList<>();
+        for (DateTime day:dateTimeList) {
+            String dayFormat = DateUtil.formatDate(day);
+            Integer count = articleService.selectCountByDate(dayFormat);
+            countList.add(count);
+        }
+
+        System.out.println("==============");
+        System.out.println(countList);
+        map.put("count", countList);
+        return Result.success(map);
+    }
 }
