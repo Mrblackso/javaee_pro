@@ -16,6 +16,7 @@
 |      sex      | varchar(255) |             |
 |      no       | varchar(255) |   UNIQUE    |
 |    avatar     | varchar(256) |             |
+
 ```mysql
 create table employee
 (
