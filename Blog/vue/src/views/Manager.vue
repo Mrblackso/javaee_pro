@@ -39,12 +39,12 @@
             系统首页
           </el-menu-item>
           <!--          -->
-          <el-menu-item index="/manager/data">
-            <el-icon>
-              <DataAnalysis/>
-            </el-icon>
-            数据统计
-          </el-menu-item>
+<!--          <el-menu-item index="/manager/data">-->
+<!--            <el-icon>-->
+<!--              <DataAnalysis/>-->
+<!--            </el-icon>-->
+<!--            数据统计-->
+<!--          </el-menu-item>-->
           <!--          -->
 
           <el-menu-item index="/manager/article">
@@ -120,6 +120,7 @@ const  data = reactive({
 })
 
 const logout = () => {
+
   localStorage.removeItem('token')
   router.push('/login')
 }
