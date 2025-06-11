@@ -130,47 +130,44 @@ create table article
 
 ## 前后端接口
 ### 网页接口
-| 接口         | 描述     |
-|:-----------|--------|
-| /register  | 注册     |
-| /login     | 登录     |
-| /weather   | 返回天气   |
-| /map       | 返回json |
-| /hello     | hello  |
-| /count     | 抛出异常   |
+| 接口         | 方法   | 描述 |
+|:-----------|------|----|
+| /register  | POST | 注册 |
+| /login     | POST | 登录 |
+
 
 ### 员工接口
-|     /employee      | 描述       |
-|:------------------:|----------|
-|      /updata       | 更新员工数据   |
-|        /add        | 添加员工     |
-|    /selectPages    | 分页查询     |
-|  /selectById/{id}  | 根据id查询用户 |
-|     /selectAll     | 查询所有用户   |
-|  /deleteById/{id}  | 根据id删除用户 |
-|    /deleteBatch    | 批量删除     |
+|     /employee      | 方法     | 描述       |
+|:------------------:|--------|----------|
+|      /updata       | POST   | 更新员工数据   |
+|        /add        | POST   | 添加员工     |
+|    /selectPages    | GET    | 分页查询     |
+|  /selectById/{id}  | GET    | 根据id查询用户 |
+|     /selectAll     | GET    | 查询所有用户   |
+|  /deleteById/{id}  | DELETE | 根据id删除用户 |
+|    /deleteBatch    | DELETE | 批量删除     |
 
 ### 管理员接口
-|       /admin       | 描述     |
-|:------------------:|--------|
-|      /updata       | 更新信息   |
-|        /add        | 添加用户   |
-|    /selectPages    | 分页查询   |
-|  /selectById/{id}  | 根据id查询 |
-|     /selectAll     | 查询所有   |
-|  /deleteById/{id}  | 根据id删除 |
-|    /deleteBatch    | 批量删除   |
+|       /admin       | 方法     | 描述     |
+|:------------------:|--------|--------|
+|      /updata       | POST   | 更新信息   |
+|        /add        | POST   | 添加用户   |
+|    /selectPages    | GET    | 分页查询   |
+|  /selectById/{id}  | GET    | 根据id查询 |
+|     /selectAll     | GET    | 查询所有   |
+|  /deleteById/{id}  | DELETE | 根据id删除 |
+|    /deleteBatch    | DELETE | 批量删除   |
 
 ### 文章接口
-| /article         | 描述       |
-|------------------|----------|
-| /updata          | 更新文章     |
-| /add             | 添加文章     |
-| /selectPages     | 分页查询     |
-| /selectById/{id} | 根据id查询用户 |
-| /selectAll       | 查询所有     |
-| /deleteById/{id} | 根据id删除文章 |
-| /deleteBatch     | 批量删除     |
+| /article         | 方法     | 描述       |
+|------------------|--------|----------|
+| /updata          | POST   | 更新文章     |
+| /add             | POST   | 添加文章     |
+| /selectPages     | GET    | 分页查询     |
+| /selectById/{id} | GET    | 根据id查询用户 |
+| /selectAll       | GET    | 查询所有     |
+| /deleteById/{id} | DELETE | 根据id删除文章 |
+| /deleteBatch     | DELETE | 批量删除     |
 ---
 
 ## 架构
