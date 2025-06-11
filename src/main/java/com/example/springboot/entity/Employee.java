@@ -27,5 +27,5 @@ public class Employee extends Account{
     // 个人介绍
     private String description;
     // 部门
-    private Integer departmentId;
+    private String departmentId;
 }

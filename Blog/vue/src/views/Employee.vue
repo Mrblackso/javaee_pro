@@ -305,7 +305,7 @@ const delBatch = () => {
   }
 
   ElMessageBox.confirm('删除后数据无法恢复,请确认 qwq ','删除确认', {type : 'warning'}).then(()=>
-      request.delete(`/employee/deleteBatch/`, {data : data.ids}).then(res => {
+      request.delete(`/employee/deleteBatch`, {data : data.ids}).then(res => {
         if (res.code === '200') {
           // alert('删除成功');
           ElMessage.success( '删除成功')
