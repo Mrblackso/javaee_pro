@@ -8,8 +8,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-//import javax.annotation.Resource;
 import java.util.List;
 
 @Tag(name = "文章接口")
@@ -17,7 +15,6 @@ import java.util.List;
 @RequestMapping("/article")
 public class ArticleController {
 
-//    @Resource
     @Autowired
     private ArticleService articleService;
 

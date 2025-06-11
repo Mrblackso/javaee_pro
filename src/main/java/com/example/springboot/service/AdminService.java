@@ -14,8 +14,6 @@ import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-//import javax.annotation.Resource;
 import java.util.List;
 
 //@Service 功能: 将当前类标记为 service 类,  交给 spring 管理
@@ -23,7 +21,6 @@ import java.util.List;
 @Service
 public class AdminService {
 
-//    @Resource
     @Autowired
     private AdminMapper adminMapper;
     public List<Admin> selectAll(@Param("admin") Admin admin) {

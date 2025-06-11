@@ -16,8 +16,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-//import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,14 +25,12 @@ import java.util.stream.Collectors;
 @Tag(name = "网页接口")
 public class WebController {
 
-//    @Resource
     @Autowired
     private EmployeeService employeeService;
 
-//    @Resource
     @Autowired
     private AdminService adminService;
-//    @Resource
+
     @Autowired
     private ArticleService articleService;
 //    可以通过get 请求
