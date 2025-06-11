@@ -1,31 +1,23 @@
 package com.example.springboot.service;
 
-
-
-//service 用于处理 数据
-
-import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.StrUtil;
-import com.example.springboot.entity.Account;
 import com.example.springboot.entity.Article;
-import com.example.springboot.exception.CustomException;
 import com.example.springboot.mapper.ArticleMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
-//@Service 功能: 将当前类标记为 service 类,  交给 spring 管理
 
 @Service
 public class ArticleService {
 
-    @Autowired
-    private ArticleMapper articleMapper;
-    public List<Article> selectAll(@Param("article") Article article) {
+    private final ArticleMapper articleMapper;
+
+    public ArticleService(ArticleMapper articleMapper) {
+        this.articleMapper = articleMapper;
+    }
+
+    public List<Article> selectAll(Article article) {
         return articleMapper.selectAll(article);
     }
 

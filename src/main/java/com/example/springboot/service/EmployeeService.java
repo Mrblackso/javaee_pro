@@ -1,29 +1,24 @@
 package com.example.springboot.service;
 
-
-
-//service 用于处理 数据
-
 import cn.hutool.core.util.StrUtil;
 import com.example.springboot.entity.Account;
-import com.example.springboot.entity.Admin;
 import com.example.springboot.entity.Employee;
 import com.example.springboot.exception.CustomException;
 import com.example.springboot.mapper.EmployeeMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
-//@Service 功能: 将当前类标记为 service 类,  交给 spring 管理
 
 @Service
 public class EmployeeService {
 
-    @Autowired
-    private EmployeeMapper employeeMapper;
+    private final EmployeeMapper employeeMapper;
+
+    public EmployeeService(EmployeeMapper employeeMapper) {
+        this.employeeMapper = employeeMapper;
+    }
 
     public List<Employee> selectAll(@Param("employee") Employee employee) {
         return employeeMapper.selectAll(employee);
@@ -44,7 +39,6 @@ public class EmployeeService {
         String  username = employee.getUsername();
         Employee DbEmployee = employeeMapper.selectByUsername(username);
         if(DbEmployee != null){
-//        数据库中有 该名字
             throw new CustomException("500", "用户已存在");
         }
         Employee DbEmployee1 = employeeMapper.selectByNO(employee.getNo());
@@ -82,14 +76,12 @@ public class EmployeeService {
         String  username = account.getUsername();
         Employee DbEmployee = employeeMapper.selectByUsername(username);
         if(DbEmployee == null){
-//        数据库中没有 该名字
             throw new CustomException("500", "用户不存在");
 
         }
 
         String  password = account.getPassword();
         if(!DbEmployee.getPassword().equals(password)){
-//            密码不匹配
             DbEmployee.setPassword(null);
             throw new CustomException("500", "密码错误");
 
@@ -100,7 +92,6 @@ public class EmployeeService {
     }
 
     public void register(Employee employee) {
-//        employeeMapper.add(employee);
         this.add(employee);
     }
 
@@ -108,7 +99,6 @@ public class EmployeeService {
         Integer id=account.getId();
         Employee DbEmployee = this.selectById(id);
         if(!DbEmployee.getPassword().equals(account.getPassword())){
-            //密码 不匹配
             throw new CustomException("500", "对不起，原密码错误");
         }
         DbEmployee.setPassword(account.getNewPassword());

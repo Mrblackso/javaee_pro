@@ -10,16 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import com.github.pagehelper.PageInfo;
 import java.util.List;
 
+@Tag(name = "员工接口")
 @RestController
 @RequestMapping("/employee")
-@Tag(name = "员工接口")
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
-//    查询所有数据
+    //    查询所有数据
     @Operation(summary = "查询所有用户")
     @GetMapping("/selectAll")
     public Result selectAll(Employee  employee){

@@ -15,11 +15,13 @@ import java.util.List;
 @RequestMapping("/article")
 public class ArticleController {
 
-    @Autowired
-    private ArticleService articleService;
+    private final ArticleService articleService;
 
+    public ArticleController(ArticleService articleService) {
+        this.articleService = articleService;
+    }
 
-//    查询所有数据
+    //    查询所有数据
     @GetMapping("/selectAll")
     public Result selectAll(Article article){
         if (article == null) {
@@ -57,7 +59,7 @@ public class ArticleController {
         if (article.getContent() == null || article.getContent().isEmpty()) {
             return Result.error("400", "内容不能为空");
         }
-        System.out.println("接收到的文章数据：" + article); // 调试日志
+//        System.out.println("接收到的文章数据：" + article); // 调试日志
         articleService.add(article);
         return Result.success();
     }
@@ -68,13 +70,13 @@ public class ArticleController {
         articleService.updata(article);
         return Result.success();
     }
+
     @Operation(summary = "删除指定文章", description = "根据 id 删除指定文章")
     @DeleteMapping("deleteById/{id}")
     public Result deleteById(@PathVariable Integer id){
         articleService.deleteById(id);
         return Result.success();
     }
-
 
 //    批量删除
     @Operation(summary = "批量删除")

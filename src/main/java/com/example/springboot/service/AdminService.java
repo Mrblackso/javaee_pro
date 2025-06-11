@@ -12,17 +12,18 @@ import com.example.springboot.mapper.AdminMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
-//@Service 功能: 将当前类标记为 service 类,  交给 spring 管理
 
 @Service
 public class AdminService {
 
-    @Autowired
-    private AdminMapper adminMapper;
+    private final AdminMapper adminMapper;
+
+    public AdminService(AdminMapper adminMapper) {
+        this.adminMapper = adminMapper;
+    }
+
     public List<Admin> selectAll(@Param("admin") Admin admin) {
         return adminMapper.selectAll(admin);
     }

@@ -23,7 +23,6 @@ import java.util.Map;
 public class FileController {
 
     //获取文件路径
-
     private static final String filePath =System.getProperty("user.dir")+"/files/";
 
     @Operation(summary = "文件上传")
@@ -42,9 +41,6 @@ public class FileController {
 
         String fileName = System.currentTimeMillis()+"_"+originalFilename;
         String realPath = filePath+fileName;
-//        System.out.println("<------------------>");
-//        System.out.println(originalFilename);// 为空?
-//        System.out.println("<------------------>");
         try {
             FileUtil.writeBytes(file.getBytes(),realPath);
         } catch (IOException e) {
@@ -81,8 +77,7 @@ public class FileController {
 
     }
 
-
-    @Operation(summary = "文件上传失败", description = "???")
+    @Operation(summary = "markdown内容图片上传")
     @PostMapping("wang/upload")
     public Map<String, Object> wangEditorUpload(MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
@@ -107,5 +102,4 @@ public class FileController {
         resMap.put("data",list);
         return resMap;
     }
-
 }

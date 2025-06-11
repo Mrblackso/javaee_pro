@@ -21,49 +21,20 @@ import java.util.stream.Collectors;
 
 
 //标注这个是接口 返回 json
-@RestController()
 @Tag(name = "网页接口")
+@RestController()
 public class WebController {
 
-    @Autowired
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
-    @Autowired
-    private AdminService adminService;
+    private final AdminService adminService;
 
-    @Autowired
-    private ArticleService articleService;
-//    可以通过get 请求
-    @Operation(summary = "返回 hello")
-    @GetMapping("/hello")
-    public  Result hello() {
-        return Result.success("hello");
-    }
+    private final ArticleService articleService;
 
-    @Operation(summary = "返回天气很好")
-    @GetMapping("/weather")
-    public Result weather() {
-        return Result.success("today's weather is sunny! qwq");
-    }
-
-    @Operation(summary = "返回程序自己抛出的异常")
-    @GetMapping("/count")
-    public Result count() {
-//        int res=1/0;
-        throw new CustomException("400", "error" );
-//        throw new  RuntimeException("error");// 程序自己抛出一个异常
-//        return Result.success(114514);
-    }
-
-
-    //返回一个 json 数据
-    @Operation(summary = "返回一个 Json 数据")
-    @GetMapping("/map")
-    public Result map() {
-        HashMap<String,Object> map = new HashMap<>();
-        map.put("name","zcj");
-        map.put("age",18);
-        return Result.success(map);
+    public WebController(EmployeeService employeeService, AdminService adminService, ArticleService articleService) {
+        this.employeeService = employeeService;
+        this.adminService = adminService;
+        this.articleService = articleService;
     }
 
     @Operation(summary = "用户登录接口")
@@ -92,16 +63,14 @@ public class WebController {
     @PutMapping("/updatePassword")
     public Result updatePassword(@RequestBody Account account) {
 
-
-       Account result = null;
+        Account result = null;
 
 //        信息已经传入
-        System.out.println(account.getRole());
-        System.out.println("ADMIN");
+//        System.out.println(account.getRole());
+//        System.out.println("ADMIN");
 //        System.out.println("EMP");
 
         if("ADMIN".equals(account.getRole())){
-            //System.out.println("now step in");
             adminService.updatePassword(account);
         }else if("EMP".equals(account.getRole())){
             employeeService.updatePassword(account);
@@ -123,9 +92,6 @@ public class WebController {
         List<String> dateList = dateTimeList.stream().map(dateTime -> DateUtil.format(dateTime, "MM月dd日"))
                 .sorted(Comparator.naturalOrder()).collect(Collectors.toList());
 
-        System.out.println("==============");
-        System.out.println(dateList);
-
         map.put("date", dateList);
 
         List<Integer> countList = new ArrayList<>();
@@ -135,8 +101,6 @@ public class WebController {
             countList.add(count);
         }
 
-        System.out.println("==============");
-        System.out.println(countList);
         map.put("count", countList);
         return Result.success(map);
     }

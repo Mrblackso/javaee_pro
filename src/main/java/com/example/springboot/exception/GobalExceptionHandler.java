@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 //表示这是全局异常处理
-//"com.example.springboot.controller"表示 处理 com.example.springboot.controller 包下的所有异常
-
+//处理 com.example.springboot.controller 包下的所有异常
 @ControllerAdvice("com.example.springboot.controller")
 public class GobalExceptionHandler {
     @ExceptionHandler (Exception.class)// 拦截所有异常 Exception是所用 的异常类的· 父类

@@ -6,7 +6,6 @@ import com.example.springboot.service.AdminService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -15,12 +14,13 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
+    private final AdminService adminService;
 
-    @Autowired
-    private AdminService adminService;
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
-
-//    查询所有数据
+    //    查询所有数据
     @Operation(summary = "查询所有管理员")
     @GetMapping("/selectAll")
     public Result selectAll(Admin  admin){
@@ -66,7 +66,6 @@ public class AdminController {
         adminService.deleteById(id);
         return Result.success();
     }
-
 
 //    批量删除
     @Operation(summary = "批量删除")

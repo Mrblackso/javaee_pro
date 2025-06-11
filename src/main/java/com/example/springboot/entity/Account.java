@@ -16,9 +16,8 @@ public class Account {
     private String role;
     // 名称
     private String name;
-
+    // 新密码
     private String newPassword;
-
+    // 头像
     private String avatar;
-
 }
