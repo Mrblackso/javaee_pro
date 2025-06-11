@@ -5,9 +5,10 @@ import com.example.springboot.entity.Employee;
 import com.example.springboot.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.github.pagehelper.PageInfo;
-import javax.annotation.Resource;
+//import javax.annotation.Resource;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -16,7 +17,8 @@ import java.util.List;
 @Tag(name = "员工接口")
 public class EmployeeController {
 
-    @Resource
+//    @Resource
+    @Autowired
     private EmployeeService employeeService;
 
 

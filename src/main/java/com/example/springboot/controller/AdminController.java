@@ -6,9 +6,10 @@ import com.example.springboot.service.AdminService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+//import javax.annotation.Resource;
 import java.util.List;
 
 @Tag(name = "管理员接口")
@@ -16,7 +17,8 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @Resource
+//    @Resource
+    @Autowired
     private AdminService adminService;
 
 

@@ -14,9 +14,10 @@ import com.example.springboot.mapper.ArticleMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+//import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,8 @@ import java.util.List;
 @Service
 public class ArticleService {
 
-    @Resource
+//    @Resource
+    @Autowired
     private ArticleMapper articleMapper;
     public List<Article> selectAll(@Param("article") Article article) {
         return articleMapper.selectAll(article);
